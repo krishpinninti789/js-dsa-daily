@@ -8,12 +8,12 @@
 
 // printPattern(5);
 
-function printPattern(n) {
-  let patstring = "";
-  for (let i = 1; i <= n; i++) {
-    patstring += String(i) + " ";
-    console.log(patstring);
-  }
-}
+// function printPattern(n) {
+//   let patstring = "";
+//   for (let i = 1; i <= n; i++) {
+//     patstring += String(i) + " ";
+//     console.log(patstring);
+//   }
+// }
 
-printPattern(5);
+// printPattern(5);
