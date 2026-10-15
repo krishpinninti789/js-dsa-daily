@@ -26,17 +26,56 @@
 // const result = getFrequency([1, 2, 2, 3, 4, 4, 5, 6, 6]);
 // console.log(result);
 
-function getCharacterFreq(str) {
-  const map = new Map();
-  str.split("").forEach((element) => {
-    if (!map.has(element)) map.set(element, 1);
-    else {
-      const value = map.get(element);
-      map.set(element, value + 1);
+// function getCharacterFreq(str) {
+//   const map = new Map();
+//   str.split("").forEach((element) => {
+//     if (!map.has(element)) map.set(element, 1);
+//     else {
+//       const value = map.get(element);
+//       map.set(element, value + 1);
+//     }
+//   });
+//   return map;
+// }
+
+// const result = getCharacterFreq("aabcccdadf");
+// console.log(result);
+
+function secondMostFrequentElement(nums) {
+    const map = new Map();
+
+    for (const num of nums) {
+        map.set(num, (map.get(num) || 0) + 1);
     }
-  });
-  return map;
+    let maxFreq = 0;
+
+    for (const freq of map.values()) {
+        maxFreq = Math.max(maxFreq, freq);
+    }
+    let secondMaxFreq = 0
+    for (const freq of map.values()) {
+        if (freq < maxFreq && freq > secondMaxFreq) {
+            secondMaxFreq = freq;
+        }
+    }
+    if (secondMaxFreq === 0) {
+        return -1;
+    }
+    let secondMaxEle = Infinity;
+    for (const [num, freq] of map) {
+        if (
+            freq === secondMaxFreq &&
+            num < secondMaxEle
+        ) {
+            secondMaxEle = num;
+        }
+    }
+    return secondMaxEle
 }
 
-const result = getCharacterFreq("aabcccdadf");
-console.log(result);
+
+
+const result = secondMostFrequentElement([2, 2, 2, 3, 3, 4, 4, 4, 1, 1, 1])
+console.log("Result: ", result)
+
+
