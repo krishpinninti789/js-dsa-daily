@@ -73,27 +73,44 @@
 //     return secondMaxEle
 // }
 
-function sumHighestAndLowestFrequency(nums) {
+// function sumHighestAndLowestFrequency(nums) {
+//     const map = new Map()
+//     nums.forEach((num) => {
+//         map.set(num, (map.get(num) || 0) + 1)
+//     })
+//     let maxFreq = 0
+//     let minFreq = Infinity
+//     for (const [num, freq] of map) {
+//         if (freq > maxFreq) {
+//             maxFreq = Math.max(maxFreq, freq)
+//         }
+//         if (freq < minFreq) {
+//             minFreq = Math.min(minFreq, freq)
+//         }
+//     }
+//     return minFreq + maxFreq
+// }
+
+
+
+// const result = sumHighestAndLowestFrequency([2, 2, 2, 3, 3, 4, 4, 4, 1, 1, 1])
+// console.log("Result: ", result)
+
+function frequencySort(s) {
+    //your code goes here
     const map = new Map()
-    nums.forEach((num) => {
-        map.set(num, (map.get(num) || 0) + 1)
-    })
-    let maxFreq = 0
-    let minFreq = Infinity
-    for (const [num, freq] of map) {
-        if (freq > maxFreq) {
-            maxFreq = Math.max(maxFreq, freq)
-        }
-        if (freq < minFreq) {
-            minFreq = Math.min(minFreq, freq)
-        }
+    for (let char of s) {
+        map.set(char, (map.get(char) || 0) + 1)
     }
-    return minFreq + maxFreq
+    const sorted = Array.from(map.entries()).sort()
+    const result = []
+    for (let entry of sorted) {
+        result.push(entry[0]);
+    }
+    return result
 }
 
-
-
-const result = sumHighestAndLowestFrequency([2, 2, 2, 3, 3, 4, 4, 4, 1, 1, 1])
-console.log("Result: ", result)
+const result = frequencySort("tree")
+console.log(result)
 
 
