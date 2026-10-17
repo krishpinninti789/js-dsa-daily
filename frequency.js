@@ -102,7 +102,12 @@ function frequencySort(s) {
     for (let char of s) {
         map.set(char, (map.get(char) || 0) + 1)
     }
-    const sorted = Array.from(map.entries()).sort()
+    const sorted = Array.from(map.entries()).sort((a, b) => {
+        if (b[1] !== a[1]) {
+            return b[1] - a[1]
+        }
+        return a[0].localeCompare(b[0])
+    })
     const result = []
     for (let entry of sorted) {
         result.push(entry[0]);
