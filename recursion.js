@@ -34,26 +34,47 @@
 // console.log(isSorted([1, 2, 5, 4, 3]))
 
 
-var check = function (nums) {
-    let drops = 0
-    let i = 0
-    let j = i + 1
-    function checkDrop(nums, drops, i, j) {
-        if (drops === 2) {
-            return false
-        }
-        if (j > nums.length && drops <= 1) {
-            return true
-        }
-        if (nums[i] > nums[(i + 1) % nums.length]) {
-            drops++
-        }
-        return checkDrop(nums, drops, i + 1, j + 1)
-    }
-    return checkDrop(nums, drops, i, j)
-};
+// var check = function (nums) {
+//     let drops = 0
+//     let i = 0
+//     let j = i + 1
+//     function checkDrop(nums, drops, i, j) {
+//         if (drops === 2) {
+//             return false
+//         }
+//         if (j > nums.length && drops <= 1) {
+//             return true
+//         }
+//         if (nums[i] > nums[(i + 1) % nums.length]) {
+//             drops++
+//         }
+//         return checkDrop(nums, drops, i + 1, j + 1)
+//     }
+//     return checkDrop(nums, drops, i, j)
+// };
 
-const result = check([2, 3, 1, 4, 5])
-console.log(result)
+// const result = check([2, 3, 1, 4, 5])
+// console.log(result)
+
+class Solution {
+    addDigits(num) {
+        //your code goes here
+        return this.checkDigit(num)
+    }
+    checkDigit(num) {
+        let sum = 0
+        while (num > 0) {
+            sum += num % 10
+            num = Math.floor(num / 10)
+        }
+        if (sum < 10) {
+            return sum
+        }
+        return this.checkDigit(sum)
+    }
+}
+
+const sol = new Solution()
+console.log(sol.addDigits(23455))
 
 
