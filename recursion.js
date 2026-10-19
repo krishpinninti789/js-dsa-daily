@@ -6,10 +6,31 @@
 
 // printUptoN(10)/
 
-function printSum(n) {
-    if (n == 0) return 0
-    return n + printSum(n - 1)
+// function printSum(n) {
+//     if (n == 0) return 0
+//     return n + printSum(n - 1)
+// }
+
+// const res = printSum(5)
+// console.log(res)/
+
+
+function isSorted(nums) {
+    //your code goes here
+    let i = 0
+    return checkRecursion(nums, i, i + 1)
+}
+function checkRecursion(nums, i, j) {
+    if (j >= nums.length) {
+        return true
+    }
+    if (nums[j] < nums[i]) {
+        return false
+    }
+    return checkRecursion(nums, i + 1, j + 1)
 }
 
-const res = printSum(5)
-console.log(res)
+console.log(isSorted([1, 2, 3, 4, 5]))
+console.log(isSorted([1, 2, 5, 4, 3]))
+
+
