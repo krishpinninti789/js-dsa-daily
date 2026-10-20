@@ -16,19 +16,41 @@
 // const result = selectionSort([2, 1, 5, 3, 4])
 // console.log(result) 
 
-function exchangeSort(nums) {
-    let temp;
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = i; j <= nums.length; j++) {
-            if (nums[j] < nums[i]) {
-                temp = nums[i]
-                nums[i] = nums[j]
-                nums[j] = temp
+// function exchangeSort(nums) {
+//     let temp;
+//     for (let i = 0; i < nums.length; i++) {
+//         for (let j = i; j <= nums.length; j++) {
+//             if (nums[j] < nums[i]) {
+//                 temp = nums[i]
+//                 nums[i] = nums[j]
+//                 nums[j] = temp
+//             }
+//         }
+//     }
+//     return nums
+// }
+
+// const result = exchangeSort([4, 2, 1, 5, 6, 9, 7])
+// console.log(result)
+
+function bubbleSort(nums) {
+    let swapped = false
+    for (let i = nums.length - 1; i > 0; i--) {
+        for (let j = 0; j <= i - 1; j++) {
+            let temp;
+            if (nums[j] > nums[j + 1]) {
+                temp = nums[j]
+                nums[j] = nums[j + 1]
+                nums[j + 1] = temp
+                swapped = true
             }
+        }
+        if (!swapped) {
+            break
         }
     }
     return nums
 }
 
-const result = exchangeSort([4, 2, 1, 5, 6, 9, 7])
+const result = bubbleSort([4, 2, 1, 5, 6, 9, 7])
 console.log(result)
