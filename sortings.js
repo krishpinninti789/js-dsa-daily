@@ -33,24 +33,41 @@
 // const result = exchangeSort([4, 2, 1, 5, 6, 9, 7])
 // console.log(result)
 
-function bubbleSort(nums) {
-    let swapped = false
-    for (let i = nums.length - 1; i > 0; i--) {
-        for (let j = 0; j <= i - 1; j++) {
-            let temp;
-            if (nums[j] > nums[j + 1]) {
-                temp = nums[j]
-                nums[j] = nums[j + 1]
-                nums[j + 1] = temp
-                swapped = true
-            }
-        }
-        if (!swapped) {
-            break
+// function bubbleSort(nums) {
+//     let swapped = false
+//     for (let i = nums.length - 1; i > 0; i--) {
+//         for (let j = 0; j <= i - 1; j++) {
+//             let temp;
+//             if (nums[j] > nums[j + 1]) {
+//                 temp = nums[j]
+//                 nums[j] = nums[j + 1]
+//                 nums[j + 1] = temp
+//                 swapped = true
+//             }
+//         }
+//         if (!swapped) {
+//             break
+//         }
+//     }
+//     return nums
+// }
+
+// const result = bubbleSort([4, 2, 1, 5, 6, 9, 7])
+// console.log(result)
+
+function insertionSort(nums) {
+    for (let i = 0; i <= nums.length - 1; i++) {
+        let j = i
+        let temp;
+        while (j > 0 && nums[j - 1] > nums[j]) {
+            temp = nums[j - 1]
+            nums[j - 1] = nums[j]
+            nums[j] = temp
+            j--
         }
     }
     return nums
 }
 
-const result = bubbleSort([4, 2, 1, 5, 6, 9, 7])
+const result = insertionSort([3, 1, 6, 21, 7])
 console.log(result)
