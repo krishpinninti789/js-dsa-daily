@@ -94,25 +94,68 @@
 // console.log(sol.intersectionArray([1, 1, 2, 2, 3, 4, 5], [1, 2, 2, 2, 3, 4, 4]))
 
 
+// class Solution {
+//     majorityElement(nums) {
+//         let count = 0
+//         let ele = nums[0]
+//         for (let i = 0; i < nums.length; i++) {
+//             if (count === 0) {
+//                 ele = nums[i]
+//                 count++
+//             }
+//             else if (ele === nums[i]) {
+//                 count++
+//             }
+//             else {
+//                 count--
+//             }
+//         }
+//         return ele
+//     }
+// }
+
+// const result = new Solution()
+// console.log(result.majorityElement([1, 1, 1, 2, 3, 3, 5, 5, 5, 5, 5, 5]))
+
+
+// class Solution {
+//     leaders(nums) {
+//         let result = []
+//         for (let i = 0; i < nums.length - 1; i++) {
+//             let leader = true
+//             for (let j = i + 1; j < nums.length; j++) {
+//                 if (nums[i] < nums[j]) {
+//                     leader = false
+//                     break
+//                 }
+//             }
+//             if (leader) {
+//                 result.push(nums[i])
+//             }
+//         }
+//         result.push(nums[nums.length - 1])
+//         return result
+//     }
+// }
+
+// const result = new Solution()
+// console.log(result.leaders([-3, 4, 5, 1, -4, -5]))
+
+
+//optimal solution
 class Solution {
-    majorityElement(nums) {
-        let count = 0
-        let ele = nums[0]
-        for (let i = 0; i < nums.length; i++) {
-            if (count === 0) {
-                ele = nums[i]
-                count++
-            }
-            else if (ele === nums[i]) {
-                count++
-            }
-            else {
-                count--
+    leaders(nums) {
+        let result = []
+        let max = -Infinity
+        for (let i = nums.length - 1; i > 0; i--) {
+            if (max < nums[i]) {
+                max = nums[i]
+                result.push(nums[i])
             }
         }
-        return ele
+        return result.reverse()
     }
 }
 
 const result = new Solution()
-console.log(result.majorityElement([1, 1, 1, 2, 3, 3, 5, 5, 5, 5, 5, 5]))
+console.log(result.leaders([-3, 4, 5, 1, -4, -5]))
