@@ -26,13 +26,38 @@
 
 class Solution {
     unionArray(nums1, nums2) {
-        const merged = [...nums1, ...nums2]
-        const set1 = new Set(merged)
-        const result = []
-        for (const value of set1) {
-            result.push(value)
+        let i = 0
+        let j = 0
+        let result = []
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] < nums2[j]) {
+                if (result[result.length - 1] !== nums1[i]) {
+                    result.push(nums1[i])
+                }
+                i++
+
+            }
+            else {
+                if (result[result.length - 1] !== nums2[j]) {
+                    result.push(nums2[j])
+                }
+                j++
+
+            }
         }
-        return result.sort((a, b) => a - b)
+        while (i < nums1.length) {
+            if (result[result.length - 1] !== nums1[i]) {
+                result.push(nums1[i])
+            }
+            i++
+        }
+        while (j < nums2.length) {
+            if (result[result.length - 1] !== nums2[j]) {
+                result.push(nums2[j])
+            }
+            j++
+        }
+        return result
     }
 }
 
