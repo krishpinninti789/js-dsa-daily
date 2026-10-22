@@ -65,30 +65,54 @@
 // console.log(sol.unionArray([1, 2, 3, 4], [2, 3, 3, 6, 7]))
 
 
+// class Solution {
+//     intersectionArray(nums1, nums2) {
+//         let i = 0
+//         let j = 0
+//         let result = []
+//         while (i < nums1.length && j < nums2.length) {
+//             if (nums1[i] == nums2[j]) {
+//                 result.push(nums1[i])
+//                 i++
+//                 j++
+//             }
+//             else {
+//                 if (nums1[i] > nums2[j]) {
+//                     j++
+//                 }
+//                 else {
+//                     i++
+//                 }
+
+//             }
+//         }
+//         return result
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.intersectionArray([1, 1, 2, 2, 3, 4, 5], [1, 2, 2, 2, 3, 4, 4]))
+
+
 class Solution {
-    intersectionArray(nums1, nums2) {
-        let i = 0
-        let j = 0
-        let result = []
-        while (i < nums1.length && j < nums2.length) {
-            if (nums1[i] == nums2[j]) {
-                result.push(nums1[i])
-                i++
-                j++
+    majorityElement(nums) {
+        let count = 0
+        let ele = nums[0]
+        for (let i = 0; i < nums.length; i++) {
+            if (count === 0) {
+                ele = nums[i]
+                count++
+            }
+            else if (ele === nums[i]) {
+                count++
             }
             else {
-                if (nums1[i] > nums2[j]) {
-                    j++
-                }
-                else {
-                    i++
-                }
-
+                count--
             }
         }
-        return result
+        return ele
     }
 }
 
-const sol = new Solution()
-console.log(sol.intersectionArray([1, 1, 2, 2, 3, 4, 5], [1, 2, 2, 2, 3, 4, 4]))
+const result = new Solution()
+console.log(result.majorityElement([1, 1, 1, 2, 3, 3, 5, 5, 5, 5, 5, 5]))
