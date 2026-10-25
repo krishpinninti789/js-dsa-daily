@@ -226,16 +226,41 @@
 // const result = console.log(sol.pascalTriangleI(5, 2))
 
 
-var getRow = function (rowIndex) {
-    let ans = 1
-    let ansRow = []
-    ansRow.push(ans)
-    for (let i = 0; i < rowIndex; i++) {
-        ans = ans * (rowIndex - i)
-        ans = ans / (i + 1)
-        ansRow.push(ans)
-    }
-    return ansRow
-};
+// var getRow = function (rowIndex) {
+//     let ans = 1
+//     let ansRow = []
+//     ansRow.push(ans)
+//     for (let i = 0; i < rowIndex; i++) {
+//         ans = ans * (rowIndex - i)
+//         ans = ans / (i + 1)
+//         ansRow.push(ans)
+//     }
+//     return ansRow
+// };
 
-console.log(getRow(4))
+// console.log(getRow(4))
+
+
+class Solution {
+    pascalTriangleIII(n) {
+        let ans = []
+        for (let i = 1; i <= n; i++) {
+            ans.push(this.getRows(i))
+        }
+        return ans
+    }
+    getRows(rows) {
+        let ans = 1
+        let temp = []
+        temp.push(ans)
+        for (let i = 1; i < rows; i++) {
+            ans = ans * (rows - i)
+            ans = ans / i
+            temp.push(ans)
+        }
+        return temp
+    }
+}
+
+const sol = new Solution()
+console.log(sol.pascalTriangleIII(5))
