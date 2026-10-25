@@ -241,26 +241,50 @@
 // console.log(getRow(4))
 
 
+// class Solution {
+//     pascalTriangleIII(n) {
+//         let ans = []
+//         for (let i = 1; i <= n; i++) {
+//             ans.push(this.getRows(i))
+//         }
+//         return ans
+//     }
+//     getRows(rows) {
+//         let ans = 1
+//         let temp = []
+//         temp.push(ans)
+//         for (let i = 1; i < rows; i++) {
+//             ans = ans * (rows - i)
+//             ans = ans / i
+//             temp.push(ans)
+//         }
+//         return temp
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.pascalTriangleIII(5))
+
+
 class Solution {
-    pascalTriangleIII(n) {
-        let ans = []
-        for (let i = 1; i <= n; i++) {
-            ans.push(this.getRows(i))
+    rotateMatrix(matrix) {
+        let rows = matrix.length - 1
+        let cols = matrix[0].length - 1
+        let temp = Array.from({ length: matrix.length }, () => Array(matrix[0].length).fill(0))
+        for (let i = 0; i <= rows; i++) {
+            for (let j = 0; j <= cols; j++) {
+                temp[j][cols - i] = matrix[i][j]
+            }
         }
-        return ans
-    }
-    getRows(rows) {
-        let ans = 1
-        let temp = []
-        temp.push(ans)
-        for (let i = 1; i < rows; i++) {
-            ans = ans * (rows - i)
-            ans = ans / i
-            temp.push(ans)
+        for (let i = 0; i <= rows; i++) {
+            for (let j = 0; j <= cols; j++) {
+                matrix[i][j] = temp[i][j]
+            }
         }
-        return temp
+        return matrix
+
     }
 }
 
 const sol = new Solution()
-console.log(sol.pascalTriangleIII(5))
+console.log(sol.rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
