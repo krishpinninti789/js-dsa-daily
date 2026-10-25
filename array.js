@@ -206,21 +206,36 @@
 // console.log(spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
-class Solution {
-    pascalTriangleI(r, c) {
-        let n = r - 1;
-        let k = c - 1;
-        let result = 1;
+// class Solution {
+//     pascalTriangleI(r, c) {
+//         let n = r - 1;
+//         let k = c - 1;
+//         let result = 1;
 
-        k = Math.min(k, n - k);
+//         k = Math.min(k, n - k);
 
-        for (let i = 0; i < k; i++) {
-            result = result * (n - i) / (i + 1);
-        }
+//         for (let i = 0; i < k; i++) {
+//             result = result * (n - i) / (i + 1);
+//         }
 
-        return Math.round(result);
+//         return Math.round(result);
+//     }
+// }
+
+// const sol = new Solution()
+// const result = console.log(sol.pascalTriangleI(5, 2))
+
+
+var getRow = function (rowIndex) {
+    let ans = 1
+    let ansRow = []
+    ansRow.push(ans)
+    for (let i = 0; i < rowIndex; i++) {
+        ans = ans * (rowIndex - i)
+        ans = ans / (i + 1)
+        ansRow.push(ans)
     }
-}
+    return ansRow
+};
 
-const sol = new Solution()
-const result = console.log(sol.pascalTriangleI(5, 2))
+console.log(getRow(4))
