@@ -161,46 +161,66 @@
 // console.log(result.leaders([-3, 4, 5, 1, -4, -5]))
 
 
-var spiralOrder = function (matrix) {
-    const result = [];
+// var spiralOrder = function (matrix) {
+//     const result = [];
 
-    let left = 0;
-    let top = 0;
-    let right = matrix[0].length - 1;
-    let bottom = matrix.length - 1;
+//     let left = 0;
+//     let top = 0;
+//     let right = matrix[0].length - 1;
+//     let bottom = matrix.length - 1;
 
-    while (left <= right && top <= bottom) {
+//     while (left <= right && top <= bottom) {
 
-        // 1. Traverse left to right
-        for (let i = left; i <= right; i++) {
-            result.push(matrix[top][i]);
+//         // 1. Traverse left to right
+//         for (let i = left; i <= right; i++) {
+//             result.push(matrix[top][i]);
+//         }
+//         top++;
+
+//         // 2. Traverse top to bottom
+//         for (let i = top; i <= bottom; i++) {
+//             result.push(matrix[i][right]);
+//         }
+//         right--;
+
+//         // 3. Traverse right to left
+//         if (top <= bottom) {
+//             for (let i = right; i >= left; i--) {
+//                 result.push(matrix[bottom][i]);
+//             }
+//             bottom--;
+//         }
+
+//         // 4. Traverse bottom to top
+//         if (left <= right) {
+//             for (let i = bottom; i >= top; i--) {
+//                 result.push(matrix[i][left]);
+//             }
+//             left++;
+//         }
+//     }
+
+//     return result;
+// };
+
+// console.log(spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+
+
+class Solution {
+    pascalTriangleI(r, c) {
+        let n = r - 1;
+        let k = c - 1;
+        let result = 1;
+
+        k = Math.min(k, n - k);
+
+        for (let i = 0; i < k; i++) {
+            result = result * (n - i) / (i + 1);
         }
-        top++;
 
-        // 2. Traverse top to bottom
-        for (let i = top; i <= bottom; i++) {
-            result.push(matrix[i][right]);
-        }
-        right--;
-
-        // 3. Traverse right to left
-        if (top <= bottom) {
-            for (let i = right; i >= left; i--) {
-                result.push(matrix[bottom][i]);
-            }
-            bottom--;
-        }
-
-        // 4. Traverse bottom to top
-        if (left <= right) {
-            for (let i = bottom; i >= top; i--) {
-                result.push(matrix[i][left]);
-            }
-            left++;
-        }
+        return Math.round(result);
     }
+}
 
-    return result;
-};
-
-console.log(spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+const sol = new Solution()
+const result = console.log(sol.pascalTriangleI(5, 2))
