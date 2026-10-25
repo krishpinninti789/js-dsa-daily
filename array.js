@@ -266,25 +266,41 @@
 // console.log(sol.pascalTriangleIII(5))
 
 
-class Solution {
-    rotateMatrix(matrix) {
-        let rows = matrix.length - 1
-        let cols = matrix[0].length - 1
-        let temp = Array.from({ length: matrix.length }, () => Array(matrix[0].length).fill(0))
-        for (let i = 0; i <= rows; i++) {
-            for (let j = 0; j <= cols; j++) {
-                temp[j][cols - i] = matrix[i][j]
-            }
-        }
-        for (let i = 0; i <= rows; i++) {
-            for (let j = 0; j <= cols; j++) {
-                matrix[i][j] = temp[i][j]
-            }
-        }
-        return matrix
+// class Solution {
+//     rotateMatrix(matrix) {
+//         let rows = matrix.length - 1
+//         let cols = matrix[0].length - 1
+//         let temp = Array.from({ length: matrix.length }, () => Array(matrix[0].length).fill(0))
+//         for (let i = 0; i <= rows; i++) {
+//             for (let j = 0; j <= cols; j++) {
+//                 temp[j][cols - i] = matrix[i][j]
+//             }
+//         }
+//         for (let i = 0; i <= rows; i++) {
+//             for (let j = 0; j <= cols; j++) {
+//                 matrix[i][j] = temp[i][j]
+//             }
+//         }
+//         return matrix
 
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+
+
+var rotate = function (matrix) {
+    let n = matrix.length
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+        }
     }
-}
+    for (let i = 0; i < n; i++) {
+        matrix[i].reverse()
+    }
+    return matrix
+};
 
-const sol = new Solution()
-console.log(sol.rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+console.log(rotate([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
