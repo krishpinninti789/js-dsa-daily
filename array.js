@@ -306,32 +306,76 @@
 // console.log(rotate([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
+// class Solution {
+//     setZeroes(matrix) {
+//         // Your code goes here
+//         let n = matrix.length
+//         let m = matrix[0].length
+//         let rowTrack = Array(n).fill(0)
+//         let colTrack = Array(m).fill(0)
+//         for (let i = 0; i < n; i++) {
+//             for (let j = 0; j < m; j++) {
+//                 if (matrix[i][j] === 0) {
+//                     rowTrack[i] = 1
+//                     colTrack[j] = 1
+//                 }
+//             }
+//         }
+//         for (let i = 0; i < n; i++) {
+//             for (let j = 0; j < m; j++) {
+//                 if (rowTrack[i] === 1 || colTrack[j] === 1) {
+//                     matrix[i][j] = 0
+//                 }
+//             }
+//         }
+//         return matrix
+//     }
+// }
+
+// const sol = new Solution()
+
+// console.log(sol.setZeroes([[1, 1, 1], [1, 0, 1], [1, 1, 1]]))
+
 class Solution {
     setZeroes(matrix) {
         // Your code goes here
         let n = matrix.length
         let m = matrix[0].length
-        let rowTrack = Array(n).fill(0)
-        let colTrack = Array(m).fill(0)
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < m; j++) {
+        let firstColZero = matrix.some((row) => row[0] === 0)
+        let firstRowZero = matrix[0].some((i) => (i === 0))
+        for (let i = 1; i < n; i++) {
+            for (let j = 1; j < m; j++) {
                 if (matrix[i][j] === 0) {
-                    rowTrack[i] = 1
-                    colTrack[j] = 1
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
                 }
             }
         }
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < m; j++) {
-                if (rowTrack[i] === 1 || colTrack[j] === 1) {
+        for (let i = 1; i < n; i++) {
+            for (let j = 1; j < m; j++) {
+                if (matrix[i][0] === 0 || matrix[0][j] === 0) {
                     matrix[i][j] = 0
                 }
             }
         }
+
+        if (firstColZero) {
+            for (let i = 0; i < n; i++) {
+                matrix[i][0] = 0
+            }
+        }
+        if (firstRowZero) {
+            for (let j = 0; j < m; j++) {
+                matrix[0][j] = 0
+            }
+        }
+
         return matrix
     }
 }
 
 const sol = new Solution()
 
-console.log(sol.setZeroes([[1, 1, 1], [1, 0, 1], [1, 1, 1]]))
+console.log(sol.setZeroes([[1, 1, 1], [0, 0, 1], [1, 1, 1]]))
+
+
