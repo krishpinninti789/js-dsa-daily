@@ -290,17 +290,48 @@
 // console.log(sol.rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
-var rotate = function (matrix) {
-    let n = matrix.length
-    for (let i = 0; i < n; i++) {
-        for (let j = i + 1; j < n; j++) {
-            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
-        }
-    }
-    for (let i = 0; i < n; i++) {
-        matrix[i].reverse()
-    }
-    return matrix
-};
+// var rotate = function (matrix) {
+//     let n = matrix.length
+//     for (let i = 0; i < n; i++) {
+//         for (let j = i + 1; j < n; j++) {
+//             [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+//         }
+//     }
+//     for (let i = 0; i < n; i++) {
+//         matrix[i].reverse()
+//     }
+//     return matrix
+// };
 
-console.log(rotate([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+// console.log(rotate([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+
+
+class Solution {
+    setZeroes(matrix) {
+        // Your code goes here
+        let n = matrix.length
+        let m = matrix[0].length
+        let rowTrack = Array(n).fill(0)
+        let colTrack = Array(m).fill(0)
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
+                if (matrix[i][j] === 0) {
+                    rowTrack[i] = 1
+                    colTrack[j] = 1
+                }
+            }
+        }
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
+                if (rowTrack[i] === 1 || colTrack[j] === 1) {
+                    matrix[i][j] = 0
+                }
+            }
+        }
+        return matrix
+    }
+}
+
+const sol = new Solution()
+
+console.log(sol.setZeroes([[1, 1, 1], [1, 0, 1], [1, 1, 1]]))
