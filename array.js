@@ -336,46 +336,62 @@
 
 // console.log(sol.setZeroes([[1, 1, 1], [1, 0, 1], [1, 1, 1]]))
 
+// class Solution {
+//     setZeroes(matrix) {
+//         // Your code goes here
+//         let n = matrix.length
+//         let m = matrix[0].length
+//         let firstColZero = matrix.some((row) => row[0] === 0)
+//         let firstRowZero = matrix[0].some((i) => (i === 0))
+//         for (let i = 1; i < n; i++) {
+//             for (let j = 1; j < m; j++) {
+//                 if (matrix[i][j] === 0) {
+//                     matrix[i][0] = 0
+//                     matrix[0][j] = 0
+//                 }
+//             }
+//         }
+//         for (let i = 1; i < n; i++) {
+//             for (let j = 1; j < m; j++) {
+//                 if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+//                     matrix[i][j] = 0
+//                 }
+//             }
+//         }
+
+//         if (firstColZero) {
+//             for (let i = 0; i < n; i++) {
+//                 matrix[i][0] = 0
+//             }
+//         }
+//         if (firstRowZero) {
+//             for (let j = 0; j < m; j++) {
+//                 matrix[0][j] = 0
+//             }
+//         }
+
+//         return matrix
+//     }
+// }
+
+// const sol = new Solution()
+
+// console.log(sol.setZeroes([[1, 1, 1], [0, 0, 1], [1, 1, 1]]))
+
+
 class Solution {
-    setZeroes(matrix) {
-        // Your code goes here
-        let n = matrix.length
-        let m = matrix[0].length
-        let firstColZero = matrix.some((row) => row[0] === 0)
-        let firstRowZero = matrix[0].some((i) => (i === 0))
-        for (let i = 1; i < n; i++) {
-            for (let j = 1; j < m; j++) {
-                if (matrix[i][j] === 0) {
-                    matrix[i][0] = 0
-                    matrix[0][j] = 0
+    twoSum(nums, target) {
+        for (let i = 0; i < nums.length; i++) {
+            for (let j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] === target) {
+                    return [i, j]
                 }
             }
         }
-        for (let i = 1; i < n; i++) {
-            for (let j = 1; j < m; j++) {
-                if (matrix[i][0] === 0 || matrix[0][j] === 0) {
-                    matrix[i][j] = 0
-                }
-            }
-        }
-
-        if (firstColZero) {
-            for (let i = 0; i < n; i++) {
-                matrix[i][0] = 0
-            }
-        }
-        if (firstRowZero) {
-            for (let j = 0; j < m; j++) {
-                matrix[0][j] = 0
-            }
-        }
-
-        return matrix
     }
 }
 
 const sol = new Solution()
-
-console.log(sol.setZeroes([[1, 1, 1], [0, 0, 1], [1, 1, 1]]))
+console.log(sol.twoSum([1, 6, 2, 10, 3], 7))
 
 
