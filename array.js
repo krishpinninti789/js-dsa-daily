@@ -412,33 +412,67 @@
 
 
 
-class Solution {
-    threeSum(nums) {
-        const result = []
-        const seen = new Set()
-        let n = nums.length
-        for (let i = 0; i < n; i++) {
-            for (let j = i + 1; j < n; j++) {
-                for (let k = j + 1; k < n; k++) {
-                    if (nums[i] + nums[j] + nums[k] === 0) {
-                        const triplet = [nums[i], nums[j], nums[k]].sort((a, b) => a - b)
-                        const key = triplet.join(",")
-                        if (!seen.has(key)) {
-                            seen.add(key)
-                            result.push([nums[i], nums[j], nums[k]])
-                        }
+// class Solution {
+//     threeSum(nums) {
+//         const result = []
+//         const seen = new Set()
+//         let n = nums.length
+//         for (let i = 0; i < n; i++) {
+//             for (let j = i + 1; j < n; j++) {
+//                 for (let k = j + 1; k < n; k++) {
+//                     if (nums[i] + nums[j] + nums[k] === 0) {
+//                         const triplet = [nums[i], nums[j], nums[k]].sort((a, b) => a - b)
+//                         const key = triplet.join(",")
+//                         if (!seen.has(key)) {
+//                             seen.add(key)
+//                             result.push([nums[i], nums[j], nums[k]])
+//                         }
 
-                    }
-                }
+//                     }
+//                 }
+//             }
+//         }
+//         const finalResult = new Set(result)
+//         return [...finalResult]
+//     }
+// }
+
+
+// const sol = new Solution()
+// console.log(sol.threeSum([2, -2, 0, 3, -3, 5]))
+
+
+var threeSum = function (nums) {
+    const n = nums.length
+    const result = []
+    nums = nums.sort((a, b) => a - b)
+    for (let i = 0; i < n; i++) {
+        if (i > 0 && nums[i - 1] === nums[i]) continue
+        let j = i + 1
+        let k = n - 1
+        while (j < k) {
+            const sum = nums[i] + nums[j] + nums[k]
+            if (sum < 0) {
+                j++
+            }
+            else if (sum > 0) {
+                k--
+            }
+            else {
+                result.push([nums[i], nums[j], nums[k]])
+                j++
+                k--
+                while (j < k && nums[j - 1] == nums[j]) j++
+                while (j < k && nums[k + 1] == nums[k]) k--
             }
         }
-        const finalResult = new Set(result)
-        return [...finalResult]
+
     }
-}
+    return result
+
+};
 
 
-const sol = new Solution()
-console.log(sol.threeSum([2, -2, 0, 3, -3, 5]))
+console.log(threeSum([-1, 0, 1, 2, -1, -4]))
 
 
