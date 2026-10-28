@@ -395,19 +395,50 @@
 // console.log(sol.twoSum([1, 6, 2, 10, 3], 7))
 
 
-function twoSum(nums, target) {
-    const map = new Map()
-    for (let i = 0; i < nums.length; i++) {
-        let required = target - nums[i]
-        if (map.has(required)) {
-            return [map.get(required), i]
+// function twoSum(nums, target) {
+//     const map = new Map()
+//     for (let i = 0; i < nums.length; i++) {
+//         let required = target - nums[i]
+//         if (map.has(required)) {
+//             return [map.get(required), i]
+//         }
+//         else {
+//             map.set(nums[i], i)
+//         }
+//     }
+// }
+
+// console.log(twoSum([1, 2, 3, 4, 5], 5))
+
+
+
+class Solution {
+    threeSum(nums) {
+        const result = []
+        const seen = new Set()
+        let n = nums.length
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                for (let k = j + 1; k < n; k++) {
+                    if (nums[i] + nums[j] + nums[k] === 0) {
+                        const triplet = [nums[i], nums[j], nums[k]].sort((a, b) => a - b)
+                        const key = triplet.join(",")
+                        if (!seen.has(key)) {
+                            seen.add(key)
+                            result.push([nums[i], nums[j], nums[k]])
+                        }
+
+                    }
+                }
+            }
         }
-        else {
-            map.set(nums[i], i)
-        }
+        const finalResult = new Set(result)
+        return [...finalResult]
     }
 }
 
-console.log(twoSum([1, 2, 3, 4, 5], 5))
+
+const sol = new Solution()
+console.log(sol.threeSum([2, -2, 0, 3, -3, 5]))
 
 
