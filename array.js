@@ -477,37 +477,57 @@
 
 
 //Dutch national flag algorithm
+// class Solution {
+//     sortZeroOneTwo(nums) {
+//         let n = nums.length
+//         let temp
+//         let low = 0
+//         let mid = 0
+//         let high = n - 1
+//         while (low < high && mid <= high) {
+//             if (nums[mid] == 0) {
+//                 temp = nums[low]
+//                 nums[low] = nums[mid]
+//                 nums[mid] = temp
+//                 low++
+//                 mid++
+//             }
+//             else if (nums[mid] == 1) {
+//                 mid++
+//             }
+//             else {
+//                 temp = nums[high]
+//                 nums[high] = nums[mid]
+//                 nums[mid] = temp
+//                 high--
+//             }
+//         }
+//         return nums
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.sortZeroOneTwo([1, 0, 2, 1, 0]))
+
+
 class Solution {
-    sortZeroOneTwo(nums) {
-        let n = nums.length
-        let temp
-        let low = 0
-        let mid = 0
-        let high = n - 1
-        while (low < high && mid <= high) {
-            if (nums[mid] == 0) {
-                temp = nums[low]
-                nums[low] = nums[mid]
-                nums[mid] = temp
-                low++
-                mid++
-            }
-            else if (nums[mid] == 1) {
-                mid++
-            }
-            else {
-                temp = nums[high]
-                nums[high] = nums[mid]
-                nums[mid] = temp
-                high--
+    majorityElementTwo(nums) {
+        const map = new Map()
+        const result = []
+        for (let num of nums) {
+            map.set(num, (map.get(num) || 0) + 1)
+        }
+        for (let [key, value] of map) {
+            if (value > Math.floor(nums.length / 3)) {
+                result.push(key)
             }
         }
-        return nums
+        return result
     }
 }
 
 const sol = new Solution()
-console.log(sol.sortZeroOneTwo([1, 0, 2, 1, 0]))
+console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))
 
 
 
