@@ -514,15 +514,18 @@ class Solution {
     majorityElementTwo(nums) {
         const map = new Map()
         const result = []
+        const reqiuredTimes = Math.floor(nums.length / 3) + 1
         for (let num of nums) {
             map.set(num, (map.get(num) || 0) + 1)
-        }
-        for (let [key, value] of map) {
-            if (value > Math.floor(nums.length / 3)) {
-                result.push(key)
+            if (map.get(num) === reqiuredTimes) {
+                result.push(num)
+            }
+            if (result.length == 2) {
+                break
             }
         }
         return result
+
     }
 }
 
