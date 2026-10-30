@@ -510,22 +510,69 @@
 // console.log(sol.sortZeroOneTwo([1, 0, 2, 1, 0]))
 
 
+// class Solution {
+//     majorityElementTwo(nums) {
+//         const map = new Map()
+//         const result = []
+//         const reqiuredTimes = Math.floor(nums.length / 3) + 1
+//         for (let num of nums) {
+//             map.set(num, (map.get(num) || 0) + 1)
+//             if (map.get(num) === reqiuredTimes) {
+//                 result.push(num)
+//             }
+//             if (result.length == 2) {
+//                 break
+//             }
+//         }
+//         return result
+
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))/
+
+
 class Solution {
     majorityElementTwo(nums) {
-        const map = new Map()
-        const result = []
-        const reqiuredTimes = Math.floor(nums.length / 3) + 1
-        for (let num of nums) {
-            map.set(num, (map.get(num) || 0) + 1)
-            if (map.get(num) === reqiuredTimes) {
-                result.push(num)
+        let cnt1 = 0
+        let cnt2 = 0
+        let el1;
+        let el2;
+        for (let i = 0; i < nums.length; i++) {
+            if (cnt1 == 0 && el2 !== nums[i]) {
+                cnt1++
+                el1 = nums[i]
             }
-            if (result.length == 2) {
-                break
+            else if (cnt2 == 0 && el1 !== nums[i]) {
+                cnt2++
+                el2 = nums[i]
+            }
+            else if (el1 == nums[i]) cnt1++
+            else if (el2 == nums[i]) cnt2++
+            else {
+                cnt1--
+                cnt2--
             }
         }
-        return result
+        let count1 = 0;
+        let count2 = 0;
 
+        for (let num of nums) {
+            if (num === el1) count1++;
+            else if (num === el2) count2++;
+        }
+
+        const result = [];
+
+        if (count1 > Math.floor(nums.length / 3)) {
+            result.push(el1);
+        }
+
+        if (count2 > Math.floor(nums.length / 3)) {
+            result.push(el2);
+        }
+        return result
     }
 }
 
