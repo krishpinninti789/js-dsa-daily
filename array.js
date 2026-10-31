@@ -533,51 +533,79 @@
 // console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))/
 
 
+// class Solution {
+//     majorityElementTwo(nums) {
+//         let cnt1 = 0
+//         let cnt2 = 0
+//         let el1;
+//         let el2;
+//         for (let i = 0; i < nums.length; i++) {
+//             if (cnt1 == 0 && el2 !== nums[i]) {
+//                 cnt1++
+//                 el1 = nums[i]
+//             }
+//             else if (cnt2 == 0 && el1 !== nums[i]) {
+//                 cnt2++
+//                 el2 = nums[i]
+//             }
+//             else if (el1 == nums[i]) cnt1++
+//             else if (el2 == nums[i]) cnt2++
+//             else {
+//                 cnt1--
+//                 cnt2--
+//             }
+//         }
+//         let count1 = 0;
+//         let count2 = 0;
+
+//         for (let num of nums) {
+//             if (num === el1) count1++;
+//             else if (num === el2) count2++;
+//         }
+
+//         const result = [];
+
+//         if (count1 > Math.floor(nums.length / 3)) {
+//             result.push(el1);
+//         }
+
+//         if (count2 > Math.floor(nums.length / 3)) {
+//             result.push(el2);
+//         }
+//         return result
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))
+
 class Solution {
-    majorityElementTwo(nums) {
-        let cnt1 = 0
-        let cnt2 = 0
-        let el1;
-        let el2;
-        for (let i = 0; i < nums.length; i++) {
-            if (cnt1 == 0 && el2 !== nums[i]) {
-                cnt1++
-                el1 = nums[i]
-            }
-            else if (cnt2 == 0 && el1 !== nums[i]) {
-                cnt2++
-                el2 = nums[i]
-            }
-            else if (el1 == nums[i]) cnt1++
-            else if (el2 == nums[i]) cnt2++
-            else {
-                cnt1--
-                cnt2--
-            }
-        }
-        let count1 = 0;
-        let count2 = 0;
-
+    findMissingRepeatingNumbers(nums) {
+        let missingNumber;
+        let repeated;
+        let sum = 0
+        const map = new Map()
+        let n = nums.length
         for (let num of nums) {
-            if (num === el1) count1++;
-            else if (num === el2) count2++;
-        }
+            if (!map.has(num)) {
+                sum += num
+            }
+            map.set(num, (map.get(num) || 0) + 1)
 
-        const result = [];
-
-        if (count1 > Math.floor(nums.length / 3)) {
-            result.push(el1);
         }
-
-        if (count2 > Math.floor(nums.length / 3)) {
-            result.push(el2);
+        missingNumber = ((n * (n + 1)) / 2) - sum
+        for (let [key, value] of map) {
+            if (value == 2) {
+                repeated = key
+                break
+            }
         }
-        return result
+        return [repeated, missingNumber]
     }
 }
 
 const sol = new Solution()
-console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))
+console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5]))
 
 
 
