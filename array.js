@@ -579,33 +579,80 @@
 // const sol = new Solution()
 // console.log(sol.majorityElementTwo([1, 2, 1, 1, 3, 2, 2]))
 
+// class Solution {
+//     findMissingRepeatingNumbers(nums) {
+//         let missingNumber;
+//         let repeated;
+//         let sum = 0
+//         const map = new Map()
+//         let n = nums.length
+//         for (let num of nums) {
+//             if (!map.has(num)) {
+//                 sum += num
+//             }
+//             map.set(num, (map.get(num) || 0) + 1)
+
+//         }
+//         missingNumber = ((n * (n + 1)) / 2) - sum
+//         for (let [key, value] of map) {
+//             if (value == 2) {
+//                 repeated = key
+//                 break
+//             }
+//         }
+//         return [repeated, missingNumber]
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5]))
+
+
 class Solution {
     findMissingRepeatingNumbers(nums) {
-        let missingNumber;
-        let repeated;
-        let sum = 0
-        const map = new Map()
-        let n = nums.length
-        for (let num of nums) {
-            if (!map.has(num)) {
-                sum += num
-            }
-            map.set(num, (map.get(num) || 0) + 1)
-
+        let xr = 0
+        for (let i = 0; i < nums.length; i++) {
+            xr = xr ^ nums[i]
+            xr = xr ^ (i + 1)
         }
-        missingNumber = ((n * (n + 1)) / 2) - sum
-        for (let [key, value] of map) {
-            if (value == 2) {
-                repeated = key
-                break
+        let bitNo = 0
+        while (1) {
+            if ((xr & (1 << bitNo)) !== 0) {
+                break;
+            }
+            bitNo++
+        }
+        let zero = 0
+        let one = 0
+        for (let i = 0; i < nums.length; i++) {
+            if ((nums[i] & (1 << bitNo)) != 0) {
+                one = one ^ nums[i]
+            }
+            else {
+                zero = zero ^ nums[i]
             }
         }
-        return [repeated, missingNumber]
+        for (let i = 1; i <= nums.length; i++) {
+            if ((i & (1 << bitNo)) != 0) {
+                one = one ^ i
+            }
+            else {
+                zero = zero ^ i
+            }
+        }
+        let cnt = 0
+        for (let i = 0; i < nums.length; i++) {
+            if (nums[i] == one) {
+                cnt++
+            }
+        }
+        if (cnt === 2) return [one, zero]
+        return [zero, one]
     }
 }
 
 const sol = new Solution()
-console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5]))
+console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5, 6, 2, 8]))
 
 
 
