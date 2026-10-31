@@ -608,51 +608,69 @@
 // console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5]))
 
 
+// class Solution {
+//     findMissingRepeatingNumbers(nums) {
+//         let xr = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             xr = xr ^ nums[i]
+//             xr = xr ^ (i + 1)
+//         }
+//         let bitNo = 0
+//         while (1) {
+//             if ((xr & (1 << bitNo)) !== 0) {
+//                 break;
+//             }
+//             bitNo++
+//         }
+//         let zero = 0
+//         let one = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             if ((nums[i] & (1 << bitNo)) != 0) {
+//                 one = one ^ nums[i]
+//             }
+//             else {
+//                 zero = zero ^ nums[i]
+//             }
+//         }
+//         for (let i = 1; i <= nums.length; i++) {
+//             if ((i & (1 << bitNo)) != 0) {
+//                 one = one ^ i
+//             }
+//             else {
+//                 zero = zero ^ i
+//             }
+//         }
+//         let cnt = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             if (nums[i] == one) {
+//                 cnt++
+//             }
+//         }
+//         if (cnt === 2) return [one, zero]
+//         return [zero, one]
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5, 6, 2, 8]))
+
+
 class Solution {
-    findMissingRepeatingNumbers(nums) {
-        let xr = 0
+    numberOfInversions(nums) {
+        let count = 0
         for (let i = 0; i < nums.length; i++) {
-            xr = xr ^ nums[i]
-            xr = xr ^ (i + 1)
-        }
-        let bitNo = 0
-        while (1) {
-            if ((xr & (1 << bitNo)) !== 0) {
-                break;
-            }
-            bitNo++
-        }
-        let zero = 0
-        let one = 0
-        for (let i = 0; i < nums.length; i++) {
-            if ((nums[i] & (1 << bitNo)) != 0) {
-                one = one ^ nums[i]
-            }
-            else {
-                zero = zero ^ nums[i]
+            for (let j = 0; j < nums.length; j++) {
+                if (nums[i] > nums[j] && i < j) {
+                    count++
+                }
             }
         }
-        for (let i = 1; i <= nums.length; i++) {
-            if ((i & (1 << bitNo)) != 0) {
-                one = one ^ i
-            }
-            else {
-                zero = zero ^ i
-            }
-        }
-        let cnt = 0
-        for (let i = 0; i < nums.length; i++) {
-            if (nums[i] == one) {
-                cnt++
-            }
-        }
-        if (cnt === 2) return [one, zero]
-        return [zero, one]
+        return count
     }
 }
 
 const sol = new Solution()
-console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5, 6, 2, 8]))
+console.log(sol.numberOfInversions([2, 3, 7, 1, 3, 5]))
 
 
 
