@@ -655,22 +655,80 @@
 // console.log(sol.findMissingRepeatingNumbers([1, 1, 3, 4, 5, 6, 2, 8]))
 
 
-class Solution {
-    numberOfInversions(nums) {
-        let count = 0
-        for (let i = 0; i < nums.length; i++) {
-            for (let j = 0; j < nums.length; j++) {
-                if (nums[i] > nums[j] && i < j) {
-                    count++
-                }
-            }
+// class Solution {
+//     numberOfInversions(nums) {
+//         let count = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             for (let j = 0; j < nums.length; j++) {
+//                 if (nums[i] > nums[j] && i < j) {
+//                     count++
+//                 }
+//             }
+//         }
+//         return count
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.numberOfInversions([2, 3, 7, 1, 3, 5]))
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var reversePairs = function (nums) {
+    return mergeSort(nums, 0, nums.length - 1)
+};
+
+var mergeSort = function (nums, low, high) {
+    let cnt = 0
+    if (low >= high) return cnt
+    let mid = Math.floor((low + high) / 2)
+    cnt += mergeSort(nums, low, mid)
+    cnt += mergeSort(nums, mid + 1, high)
+    cnt += calculatePairs(nums, low, mid, high)
+    merge(nums, low, mid, high)
+    return cnt
+}
+
+var merge = function (nums, low, mid, high) {
+    let temp = []
+    let i = low
+    let j = mid + 1
+    while (i <= mid && j <= high) {
+        if (nums[i] <= nums[j]) {
+            temp.push(nums[i++])
         }
-        return count
+        else {
+            temp.push(nums[j++])
+        }
+
+    }
+    while (i <= mid) {
+        temp.push(nums[i++])
+    }
+    while (j <= high) {
+        temp.push(nums[j++])
+    }
+    for (let k = 0; k < temp.length; k++) {
+        nums[low + k] = temp[k]
     }
 }
 
-const sol = new Solution()
-console.log(sol.numberOfInversions([2, 3, 7, 1, 3, 5]))
+var calculatePairs = function (nums, low, mid, high) {
+    let j = mid + 1
+    let cnt = 0
+    for (let i = low; i <= mid; i++) {
+        while (j <= high && nums[i] > 2 * nums[j]) {
+            j++
+        }
+        cnt += j - (mid + 1)
+    }
+    return cnt
+}
+
+console.log(reversePairs([2, 4, 3, 5, 1]))
 
 
 
