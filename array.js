@@ -673,62 +673,83 @@
 // console.log(sol.numberOfInversions([2, 3, 7, 1, 3, 5]))
 
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var reversePairs = function (nums) {
-    return mergeSort(nums, 0, nums.length - 1)
-};
+// /**
+//  * @param {number[]} nums
+//  * @return {number}
+//  */
+// var reversePairs = function (nums) {
+//     return mergeSort(nums, 0, nums.length - 1)
+// };
 
-var mergeSort = function (nums, low, high) {
-    let cnt = 0
-    if (low >= high) return cnt
-    let mid = Math.floor((low + high) / 2)
-    cnt += mergeSort(nums, low, mid)
-    cnt += mergeSort(nums, mid + 1, high)
-    cnt += calculatePairs(nums, low, mid, high)
-    merge(nums, low, mid, high)
-    return cnt
+// var mergeSort = function (nums, low, high) {
+//     let cnt = 0
+//     if (low >= high) return cnt
+//     let mid = Math.floor((low + high) / 2)
+//     cnt += mergeSort(nums, low, mid)
+//     cnt += mergeSort(nums, mid + 1, high)
+//     cnt += calculatePairs(nums, low, mid, high)
+//     merge(nums, low, mid, high)
+//     return cnt
+// }
+
+// var merge = function (nums, low, mid, high) {
+//     let temp = []
+//     let i = low
+//     let j = mid + 1
+//     while (i <= mid && j <= high) {
+//         if (nums[i] <= nums[j]) {
+//             temp.push(nums[i++])
+//         }
+//         else {
+//             temp.push(nums[j++])
+//         }
+
+//     }
+//     while (i <= mid) {
+//         temp.push(nums[i++])
+//     }
+//     while (j <= high) {
+//         temp.push(nums[j++])
+//     }
+//     for (let k = 0; k < temp.length; k++) {
+//         nums[low + k] = temp[k]
+//     }
+// }
+
+// var calculatePairs = function (nums, low, mid, high) {
+//     let j = mid + 1
+//     let cnt = 0
+//     for (let i = low; i <= mid; i++) {
+//         while (j <= high && nums[i] > 2 * nums[j]) {
+//             j++
+//         }
+//         cnt += j - (mid + 1)
+//     }
+//     return cnt
+// }
+
+// console.log(reversePairs([2, 4, 3, 5, 1]))
+
+
+class Solution {
+    maxProduct(nums) {
+        let maxProduct = nums[0]
+        let minProduct = nums[0]
+        let overallmax = nums[0]
+        for (let i = 1; i < nums.length; i++) {
+            let curr = nums[i]
+            let tempMax = maxProduct
+            let tempMin = minProduct
+            maxProduct = Math.max(curr, curr * tempMax, curr * tempMin)
+            minProduct = Math.min(curr, curr * tempMax, curr * tempMin)
+            overallmax = Math.max(overallmax, maxProduct)
+        }
+        return overallmax
+    }
 }
 
-var merge = function (nums, low, mid, high) {
-    let temp = []
-    let i = low
-    let j = mid + 1
-    while (i <= mid && j <= high) {
-        if (nums[i] <= nums[j]) {
-            temp.push(nums[i++])
-        }
-        else {
-            temp.push(nums[j++])
-        }
-
-    }
-    while (i <= mid) {
-        temp.push(nums[i++])
-    }
-    while (j <= high) {
-        temp.push(nums[j++])
-    }
-    for (let k = 0; k < temp.length; k++) {
-        nums[low + k] = temp[k]
-    }
-}
-
-var calculatePairs = function (nums, low, mid, high) {
-    let j = mid + 1
-    let cnt = 0
-    for (let i = low; i <= mid; i++) {
-        while (j <= high && nums[i] > 2 * nums[j]) {
-            j++
-        }
-        cnt += j - (mid + 1)
-    }
-    return cnt
-}
-
-console.log(reversePairs([2, 4, 3, 5, 1]))
+const sol = new Solution()
+console.log(sol.maxProduct([1, -2, -3, 4, 0]))
 
 
 
