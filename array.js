@@ -752,29 +752,29 @@
 // console.log(sol.maxProduct([1, -2, -3, 4, 0]))
 
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var maxProduct = function (nums) {
-    let pre = 1
-    let suf = 1
-    let maxi = -Infinity
-    for (let i = 0; i < nums.length; i++) {
-        if (pre === 0) {
-            pre = 1
-        }
-        if (suf === 0) {
-            suf = 1
-        }
-        pre = pre * nums[i]
-        suf = suf * nums[nums.length - i - 1]
-        maxi = Math.max(maxi, Math.max(pre, suf))
-    }
-    return maxi
-};
+// /**
+//  * @param {number[]} nums
+//  * @return {number}
+//  */
+// var maxProduct = function (nums) {
+//     let pre = 1
+//     let suf = 1
+//     let maxi = -Infinity
+//     for (let i = 0; i < nums.length; i++) {
+//         if (pre === 0) {
+//             pre = 1
+//         }
+//         if (suf === 0) {
+//             suf = 1
+//         }
+//         pre = pre * nums[i]
+//         suf = suf * nums[nums.length - i - 1]
+//         maxi = Math.max(maxi, Math.max(pre, suf))
+//     }
+//     return maxi
+// };
 
-console.log(maxProduct([-1, -2, 2, 3, 4, 0]))
+// console.log(maxProduct([-1, -2, 2, 3, 4, 0]))
 
 // /**
 //  * @param {number[]} nums
@@ -791,6 +791,34 @@ console.log(maxProduct([-1, -2, 2, 3, 4, 0]))
 // };
 
 // console.log(minMoves([6, 2, 1, 4, 4]))
+
+
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+    let i = m - 1
+    let j = n - 1
+    let k = m + n - 1
+    while (j >= 0) {
+        if (i >= 0 && nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i]
+            i--
+        }
+        else {
+            nums1[k] = nums2[j]
+            j--
+        }
+        k--
+    }
+    return nums1
+};
+
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3))
 
 
 
