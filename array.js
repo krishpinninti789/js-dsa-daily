@@ -756,17 +756,41 @@
  * @param {number[]} nums
  * @return {number}
  */
-var minMoves = function (nums) {
-    let result = 0
-    const max = Math.max(...nums)
-    for (let num of nums) {
-        if (num === max) continue
-        result += max - num
+var maxProduct = function (nums) {
+    let pre = 1
+    let suf = 1
+    let maxi = -Infinity
+    for (let i = 0; i < nums.length; i++) {
+        if (pre === 0) {
+            pre = 1
+        }
+        if (suf === 0) {
+            suf = 1
+        }
+        pre = pre * nums[i]
+        suf = suf * nums[nums.length - i - 1]
+        maxi = Math.max(maxi, Math.max(pre, suf))
     }
-    return result
+    return maxi
 };
 
-console.log(minMoves([6, 2, 1, 4, 4]))
+console.log(maxProduct([-1, -2, 2, 3, 4, 0]))
+
+// /**
+//  * @param {number[]} nums
+//  * @return {number}
+//  */
+// var minMoves = function (nums) {
+//     let result = 0
+//     const max = Math.max(...nums)
+//     for (let num of nums) {
+//         if (num === max) continue
+//         result += max - num
+//     }
+//     return result
+// };
+
+// console.log(minMoves([6, 2, 1, 4, 4]))
 
 
 
