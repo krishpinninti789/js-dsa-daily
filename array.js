@@ -731,25 +731,42 @@
 // console.log(reversePairs([2, 4, 3, 5, 1]))
 
 
-class Solution {
-    maxProduct(nums) {
-        let maxProduct = nums[0]
-        let minProduct = nums[0]
-        let overallmax = nums[0]
-        for (let i = 1; i < nums.length; i++) {
-            let curr = nums[i]
-            let tempMax = maxProduct
-            let tempMin = minProduct
-            maxProduct = Math.max(curr, curr * tempMax, curr * tempMin)
-            minProduct = Math.min(curr, curr * tempMax, curr * tempMin)
-            overallmax = Math.max(overallmax, maxProduct)
-        }
-        return overallmax
-    }
-}
+// class Solution {
+//     maxProduct(nums) {
+//         let maxProduct = nums[0]
+//         let minProduct = nums[0]
+//         let overallmax = nums[0]
+//         for (let i = 1; i < nums.length; i++) {
+//             let curr = nums[i]
+//             let tempMax = maxProduct
+//             let tempMin = minProduct
+//             maxProduct = Math.max(curr, curr * tempMax, curr * tempMin)
+//             minProduct = Math.min(curr, curr * tempMax, curr * tempMin)
+//             overallmax = Math.max(overallmax, maxProduct)
+//         }
+//         return overallmax
+//     }
+// }
 
-const sol = new Solution()
-console.log(sol.maxProduct([1, -2, -3, 4, 0]))
+// const sol = new Solution()
+// console.log(sol.maxProduct([1, -2, -3, 4, 0]))
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minMoves = function (nums) {
+    let result = 0
+    const max = Math.max(...nums)
+    for (let num of nums) {
+        if (num === max) continue
+        result += max - num
+    }
+    return result
+};
+
+console.log(minMoves([6, 2, 1, 4, 4]))
 
 
 
