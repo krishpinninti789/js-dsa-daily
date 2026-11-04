@@ -27,29 +27,54 @@
 // console.log(sol.longestSubarray([-1, 1, 1], 1))
 
 
-class Solution {
-    longestSubarray(nums, k) {
-        let maxLength = 0
-        let left = 0
-        let right = 0
-        let sum = nums[0]
-        let n = nums.length
-        while (right < n) {
-            while (left <= right && sum > k) {
-                sum -= nums[left]
-                left++
-            }
-            if (sum === k) {
-                maxLength = Math.max(maxLength, right - left + 1)
-            }
-            right++
-            if (right < n) sum += nums[right]
+// class Solution {
+//     longestSubarray(nums, k) {
+//         let maxLength = 0
+//         let left = 0
+//         let right = 0
+//         let sum = nums[0]
+//         let n = nums.length
+//         while (right < n) {
+//             while (left <= right && sum > k) {
+//                 sum -= nums[left]
+//                 left++
+//             }
+//             if (sum === k) {
+//                 maxLength = Math.max(maxLength, right - left + 1)
+//             }
+//             right++
+//             if (right < n) sum += nums[right]
 
+//         }
+//         return maxLength
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.longestSubarray([10, 5, 2, 7, 1, 9], 15))
+// console.log(sol.longestSubarray([-3, 2, 1], 6))
+
+
+class Solution {
+    maxLen(arr) {
+        const map = new Map()
+        let sum = 0
+        let maxLength = 0
+        let n = arr.length
+        map.set(0, -1)
+        for (let i = 0; i < n; i++) {
+            sum += arr[i]
+            const required = sum
+            if (map.has(required)) {
+                maxLength = Math.max(maxLength, i - map.get(required))
+            }
+            if (!map.has(sum)) {
+                map.set(sum, i)
+            }
         }
         return maxLength
     }
 }
 
 const sol = new Solution()
-console.log(sol.longestSubarray([10, 5, 2, 7, 1, 9], 15))
-console.log(sol.longestSubarray([-3, 2, 1], 6))
+console.log(sol.maxLen([1, 2, -3]))
