@@ -55,26 +55,47 @@
 // console.log(sol.longestSubarray([-3, 2, 1], 6))
 
 
-class Solution {
-    maxLen(arr) {
-        const map = new Map()
-        let sum = 0
-        let maxLength = 0
-        let n = arr.length
-        map.set(0, -1)
-        for (let i = 0; i < n; i++) {
-            sum += arr[i]
-            const required = sum
-            if (map.has(required)) {
-                maxLength = Math.max(maxLength, i - map.get(required))
-            }
-            if (!map.has(sum)) {
-                map.set(sum, i)
-            }
+// class Solution {
+//     maxLen(arr) {
+//         const map = new Map()
+//         let sum = 0
+//         let maxLength = 0
+//         let n = arr.length
+//         map.set(0, -1)
+//         for (let i = 0; i < n; i++) {
+//             sum += arr[i]
+//             const required = sum
+//             if (map.has(required)) {
+//                 maxLength = Math.max(maxLength, i - map.get(required))
+//             }
+//             if (!map.has(sum)) {
+//                 map.set(sum, i)
+//             }
+//         }
+//         return maxLength
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.maxLen([1, 2, -3]))
+
+function numberOfSubArrays(nums, k) {
+    const map = new Map()
+    let sum = 0
+    let count = 0
+    map.set(0, 1)
+    let n = nums.length
+    for (let i = 0; i < n; i++) {
+        sum += nums[i]
+        let required = sum - k
+        if (map.has(required)) {
+            count += map.get(required)
         }
-        return maxLength
+
+        map.set(sum, (map.get(sum) || 0) + 1)
+
     }
+    return count
 }
 
-const sol = new Solution()
-console.log(sol.maxLen([1, 2, -3]))
+console.log(numberOfSubArrays([1, 1, 1], 2))
