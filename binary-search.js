@@ -29,22 +29,42 @@
 // console.log(search([-1, 0, 3, 5, 9, 12], 9))
 
 
+// class Solution {
+//     lowerBound(nums, x) {
+//         return this.recursive(nums, 0, nums.length - 1, x, nums.length)
+//     }
+//     recursive(nums, low, high, x, ans) {
+//         if (low > high) return ans
+//         let mid = Math.floor((low + high) / 2)
+//         if (nums[mid] >= x) {
+//             ans = mid
+//             return this.recursive(nums, low, mid - 1, x, ans)
+//         }
+//         else {
+//             return this.recursive(nums, mid + 1, high, x, ans)
+//         }
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.lowerBound([1, 2, 3, 3, 3, 4, 5, 6], 3))
+
 class Solution {
-    lowerBound(nums, x) {
-        return this.recursive(nums, 0, nums.length - 1, x, nums.length)
+    upperBound(nums, x) {
+        return this.recursive(nums, x, 0, nums.length - 1, nums.length)
     }
-    recursive(nums, low, high, x, ans) {
+    recursive(nums, x, low, high, ans) {
         if (low > high) return ans
         let mid = Math.floor((low + high) / 2)
-        if (nums[mid] >= x) {
+        if (nums[mid] > x) {
             ans = mid
-            return this.recursive(nums, low, mid - 1, x, ans)
+            return this.recursive(nums, x, low, mid - 1, ans);
         }
         else {
-            return this.recursive(nums, mid + 1, high, x, ans)
+            return this.recursive(nums, x, mid + 1, high, ans);
         }
     }
 }
 
 const sol = new Solution()
-console.log(sol.lowerBound([1, 2, 3, 3, 3, 4, 5, 6], 3))
+console.log(sol.upperBound([1, 2, 3, 3, 3, 4, 5, 6], 3))
