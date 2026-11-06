@@ -79,23 +79,24 @@
 // const sol = new Solution()
 // console.log(sol.maxLen([1, 2, -3]))
 
-function numberOfSubArrays(nums, k) {
-    const map = new Map()
-    let sum = 0
-    let count = 0
-    map.set(0, 1)
-    let n = nums.length
-    for (let i = 0; i < n; i++) {
-        sum += nums[i]
-        let required = sum - k
-        if (map.has(required)) {
-            count += map.get(required)
-        }
+// function numberOfSubArrays(nums, k) {
+//     const map = new Map()
+//     let sum = 0
+//     let count = 0
+//     map.set(0, 1)
+//     let n = nums.length
+//     for (let i = 0; i < n; i++) {
+//         sum += nums[i]
+//         let required = sum - k
+//         if (map.has(required)) {
+//             count += map.get(required)
+//         }
 
-        map.set(sum, (map.get(sum) || 0) + 1)
+//         map.set(sum, (map.get(sum) || 0) + 1)
 
-    }
-    return count
-}
+//     }
+//     return count
+// }
 
-console.log(numberOfSubArrays([1, 1, 1], 2))
+// console.log(numberOfSubArrays([1, 1, 1], 2))
+
