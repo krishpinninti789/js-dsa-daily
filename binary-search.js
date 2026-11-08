@@ -70,26 +70,90 @@
 // console.log(sol.upperBound([1, 2, 3, 3, 3, 4, 5, 6], 3))
 
 
+// class Solution {
+//     getFloorAndCeil(nums, x) {
+//         return this.recursive(nums, x, 0, nums.length - 1, -1, -1)
+//     }
+//     recursive(nums, x, low, high, floor, ceil) {
+//         if (low > high) return [floor, ceil]
+//         let mid = Math.floor((low + high) / 2)
+//         if (nums[mid] === x) {
+//             return [x, x];
+//         }
+//         if (nums[mid] >= x) {
+//             ceil = nums[mid]
+//             return this.recursive(nums, x, low, mid - 1, floor, ceil)
+//         }
+//         else {
+//             floor = nums[mid]
+//             return this.recursive(nums, x, mid + 1, high, floor, ceil)
+//         }
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.getFloorAndCeil([3, 4, 4, 7, 8, 10], 5))
+
+
 class Solution {
-    getFloorAndCeil(nums, x) {
-        return this.recursive(nums, x, 0, nums.length - 1, -1, -1)
+    searchRange(nums, target) {
+        let first = this.recursiveGiveFirst(
+            nums, target, 0, nums.length - 1, -1
+        );
+
+        let last = this.recursiveGiveLast(
+            nums, target, 0, nums.length - 1, -1
+        );
+
+        return [first, last];
     }
-    recursive(nums, x, low, high, floor, ceil) {
-        if (low > high) return [floor, ceil]
-        let mid = Math.floor((low + high) / 2)
-        if (nums[mid] === x) {
-            return [x, x];
+
+    recursiveGiveFirst(nums, target, low, high, start) {
+        if (low > high) return start;
+
+        let mid = Math.floor((low + high) / 2);
+
+        if (nums[mid] === target) {
+            start = mid;
+            return this.recursiveGiveFirst(
+                nums, target, low, mid - 1, start
+            );
         }
-        if (nums[mid] >= x) {
-            ceil = nums[mid]
-            return this.recursive(nums, x, low, mid - 1, floor, ceil)
+        else if (nums[mid] > target) {
+            return this.recursiveGiveFirst(
+                nums, target, low, mid - 1, start
+            );
         }
         else {
-            floor = nums[mid]
-            return this.recursive(nums, x, mid + 1, high, floor, ceil)
+            return this.recursiveGiveFirst(
+                nums, target, mid + 1, high, start
+            );
+        }
+    }
+
+    recursiveGiveLast(nums, target, low, high, end) {
+        if (low > high) return end;
+
+        let mid = Math.floor((low + high) / 2);
+
+        if (nums[mid] === target) {
+            end = mid;
+            return this.recursiveGiveLast(
+                nums, target, mid + 1, high, end
+            );
+        }
+        else if (nums[mid] > target) {
+            return this.recursiveGiveLast(
+                nums, target, low, mid - 1, end
+            );
+        }
+        else {
+            return this.recursiveGiveLast(
+                nums, target, mid + 1, high, end
+            );
         }
     }
 }
 
 const sol = new Solution()
-console.log(sol.getFloorAndCeil([3, 4, 4, 7, 8, 10], 5))
+console.log(sol.searchRange([5, 7, 7, 8, 8, 10], 8))
