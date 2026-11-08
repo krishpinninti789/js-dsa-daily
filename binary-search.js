@@ -95,65 +95,97 @@
 // console.log(sol.getFloorAndCeil([3, 4, 4, 7, 8, 10], 5))
 
 
+// class Solution {
+//     searchRange(nums, target) {
+//         let first = this.recursiveGiveFirst(
+//             nums, target, 0, nums.length - 1, -1
+//         );
+
+//         let last = this.recursiveGiveLast(
+//             nums, target, 0, nums.length - 1, -1
+//         );
+
+//         return [first, last];
+//     }
+
+//     recursiveGiveFirst(nums, target, low, high, start) {
+//         if (low > high) return start;
+
+//         let mid = Math.floor((low + high) / 2);
+
+//         if (nums[mid] === target) {
+//             start = mid;
+//             return this.recursiveGiveFirst(
+//                 nums, target, low, mid - 1, start
+//             );
+//         }
+//         else if (nums[mid] > target) {
+//             return this.recursiveGiveFirst(
+//                 nums, target, low, mid - 1, start
+//             );
+//         }
+//         else {
+//             return this.recursiveGiveFirst(
+//                 nums, target, mid + 1, high, start
+//             );
+//         }
+//     }
+
+//     recursiveGiveLast(nums, target, low, high, end) {
+//         if (low > high) return end;
+
+//         let mid = Math.floor((low + high) / 2);
+
+//         if (nums[mid] === target) {
+//             end = mid;
+//             return this.recursiveGiveLast(
+//                 nums, target, mid + 1, high, end
+//             );
+//         }
+//         else if (nums[mid] > target) {
+//             return this.recursiveGiveLast(
+//                 nums, target, low, mid - 1, end
+//             );
+//         }
+//         else {
+//             return this.recursiveGiveLast(
+//                 nums, target, mid + 1, high, end
+//             );
+//         }
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.searchRange([5, 7, 7, 8, 8, 10], 8))
+
+
 class Solution {
-    searchRange(nums, target) {
-        let first = this.recursiveGiveFirst(
-            nums, target, 0, nums.length - 1, -1
-        );
-
-        let last = this.recursiveGiveLast(
-            nums, target, 0, nums.length - 1, -1
-        );
-
-        return [first, last];
-    }
-
-    recursiveGiveFirst(nums, target, low, high, start) {
-        if (low > high) return start;
-
-        let mid = Math.floor((low + high) / 2);
-
-        if (nums[mid] === target) {
-            start = mid;
-            return this.recursiveGiveFirst(
-                nums, target, low, mid - 1, start
-            );
+    search(nums, k) {
+        let low = 0
+        let high = nums.length - 1
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2)
+            if (nums[mid] === k) return mid
+            if (nums[low] <= nums[mid]) {
+                if (k >= nums[low] && k <= nums[mid]) {
+                    high = mid - 1
+                }
+                else {
+                    low = mid + 1
+                }
+            }
+            else {
+                if (k >= nums[mid] && k <= nums[high]) {
+                    low = mid + 1
+                }
+                else {
+                    high = mid - 1
+                }
+            }
         }
-        else if (nums[mid] > target) {
-            return this.recursiveGiveFirst(
-                nums, target, low, mid - 1, start
-            );
-        }
-        else {
-            return this.recursiveGiveFirst(
-                nums, target, mid + 1, high, start
-            );
-        }
-    }
-
-    recursiveGiveLast(nums, target, low, high, end) {
-        if (low > high) return end;
-
-        let mid = Math.floor((low + high) / 2);
-
-        if (nums[mid] === target) {
-            end = mid;
-            return this.recursiveGiveLast(
-                nums, target, mid + 1, high, end
-            );
-        }
-        else if (nums[mid] > target) {
-            return this.recursiveGiveLast(
-                nums, target, low, mid - 1, end
-            );
-        }
-        else {
-            return this.recursiveGiveLast(
-                nums, target, mid + 1, high, end
-            );
-        }
+        return -1
     }
 }
 
 const sol = new Solution()
-console.log(sol.searchRange([5, 7, 7, 8, 8, 10], 8))
+console.log(sol.search([4, 5, 6, 7, 0, 1, 2], 0))
