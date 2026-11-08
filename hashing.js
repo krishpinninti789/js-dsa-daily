@@ -100,3 +100,26 @@
 
 // console.log(numberOfSubArrays([1, 1, 1], 2))
 
+class Solution {
+    subarraysWithXorK(nums, k) {
+        let count = 0
+        let xor = 0
+        let n = nums.length
+        const map = new Map()
+        map.set(0, 1)
+        for (let i = 0; i < n; i++) {
+            xor ^= nums[i]
+            let required = xor ^ k
+            if (map.has(required)) {
+                count += map.get(required)
+            }
+
+            map.set(xor, (map.get(xor) || 0) + 1)
+
+        }
+        return count
+    }
+}
+
+const sol = new Solution()
+console.log(sol.subarraysWithXorK([5, 6, 7, 8, 9], 5))
