@@ -188,4 +188,4 @@ class Solution {
 }
 
 const sol = new Solution()
-console.log(sol.search([4, 5, 6, 7, 0, 1, 2], 0))
+console.log(sol.search([1, 4, 2, 5, 6, 2, 2], 1))
