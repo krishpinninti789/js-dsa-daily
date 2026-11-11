@@ -191,40 +191,65 @@
 // console.log(sol.search([1, 4, 2, 5, 6, 2, 2], 1))
 
 
-class Solution {
-    searchInARotatedSortedArrayII(nums, k) {
-        let low = 0
-        let target = k
-        let high = nums.length - 1
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2)
-            if (nums[mid] === target) return true
-            if (nums[low] === nums[mid] && nums[mid] === nums[high]) {
-                low++;
-                high--;
-                continue;
-            }
-            if (nums[low] <= nums[mid]) {
-                if (target >= nums[low] && target <= nums[mid]) {
-                    high = mid - 1
-                }
-                else {
-                    low = mid + 1
-                }
-            }
-            else {
-                if (target >= nums[mid] && target <= nums[high]) {
-                    low = mid + 1
-                }
-                else {
-                    high = mid - 1
-                }
-            }
+// class Solution {
+//     searchInARotatedSortedArrayII(nums, k) {
+//         let low = 0
+//         let target = k
+//         let high = nums.length - 1
+//         while (low <= high) {
+//             let mid = Math.floor((low + high) / 2)
+//             if (nums[mid] === target) return true
+//             if (nums[low] === nums[mid] && nums[mid] === nums[high]) {
+//                 low++;
+//                 high--;
+//                 continue;
+//             }
+//             if (nums[low] <= nums[mid]) {
+//                 if (target >= nums[low] && target <= nums[mid]) {
+//                     high = mid - 1
+//                 }
+//                 else {
+//                     low = mid + 1
+//                 }
+//             }
+//             else {
+//                 if (target >= nums[mid] && target <= nums[high]) {
+//                     low = mid + 1
+//                 }
+//                 else {
+//                     high = mid - 1
+//                 }
+//             }
+//         }
+//         return false
+//     }
+
+// }
+
+// const sol = new Solution()
+// console.log(sol.searchInARotatedSortedArrayII([7, 8, 1, 2, 3, 3, 3, 4, 5, 6], 3))
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function (nums) {
+    let low = 0
+    let high = nums.length - 1
+    let min = Infinity
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2)
+        if (nums[low] <= nums[mid]) {
+            min = Math.min(min, nums[low])
+            low = mid + 1
         }
-        return false
+        else {
+            min = Math.min(min, nums[mid])
+            high = mid - 1
+        }
     }
+    return min
+};
 
-}
-
-const sol = new Solution()
-console.log(sol.searchInARotatedSortedArrayII([7, 8, 1, 2, 3, 3, 3, 4, 5, 6], 3))
+console.log(findMin([5, 6, 7, 0, 1, 2, 3, 4]))
