@@ -255,16 +255,37 @@
 // console.log(findMin([5, 6, 7, 0, 1, 2, 3, 4]))
 
 
+// class Solution {
+//     findKRotation(nums) {
+//         let index = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             if (nums[i] > nums[i + 1]) {
+//                 index = i + 1
+//                 break
+//             }
+//         }
+//         return index
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.findKRotation([4, 5, 6, 7, 0, 1, 2, 3]))
+
+
 class Solution {
     findKRotation(nums) {
-        let index = 0
-        for (let i = 0; i < nums.length; i++) {
-            if (nums[i] > nums[i + 1]) {
-                index = i + 1
-                break
+        let low = 0
+        let high = nums.length - 1
+        while (low < high) {
+            let mid = Math.floor((low + high) / 2)
+            if (nums[mid] > nums[high]) {
+                low = mid + 1
+            }
+            else {
+                high = mid
             }
         }
-        return index
+        return low
     }
 }
 
