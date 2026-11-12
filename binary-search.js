@@ -230,26 +230,43 @@
 // console.log(sol.searchInARotatedSortedArrayII([7, 8, 1, 2, 3, 3, 3, 4, 5, 6], 3))
 
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var findMin = function (nums) {
-    let low = 0
-    let high = nums.length - 1
-    let min = Infinity
-    while (low <= high) {
-        let mid = Math.floor((low + high) / 2)
-        if (nums[low] <= nums[mid]) {
-            min = Math.min(min, nums[low])
-            low = mid + 1
-        }
-        else {
-            min = Math.min(min, nums[mid])
-            high = mid - 1
-        }
-    }
-    return min
-};
+// /**
+//  * @param {number[]} nums
+//  * @return {number}
+//  */
+// var findMin = function (nums) {
+//     let low = 0
+//     let high = nums.length - 1
+//     let min = Infinity
+//     while (low <= high) {
+//         let mid = Math.floor((low + high) / 2)
+//         if (nums[low] <= nums[mid]) {
+//             min = Math.min(min, nums[low])
+//             low = mid + 1
+//         }
+//         else {
+//             min = Math.min(min, nums[mid])
+//             high = mid - 1
+//         }
+//     }
+//     return min
+// };
 
-console.log(findMin([5, 6, 7, 0, 1, 2, 3, 4]))
+// console.log(findMin([5, 6, 7, 0, 1, 2, 3, 4]))
+
+
+class Solution {
+    findKRotation(nums) {
+        let index = 0
+        for (let i = 0; i < nums.length; i++) {
+            if (nums[i] > nums[i + 1]) {
+                index = i + 1
+                break
+            }
+        }
+        return index
+    }
+}
+
+const sol = new Solution()
+console.log(sol.findKRotation([4, 5, 6, 7, 0, 1, 2, 3]))
