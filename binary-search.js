@@ -272,22 +272,48 @@
 // console.log(sol.findKRotation([4, 5, 6, 7, 0, 1, 2, 3]))
 
 
+// class Solution {
+//     findKRotation(nums) {
+//         let low = 0
+//         let high = nums.length - 1
+//         while (low < high) {
+//             let mid = Math.floor((low + high) / 2)
+//             if (nums[mid] > nums[high]) {
+//                 low = mid + 1
+//             }
+//             else {
+//                 high = mid
+//             }
+//         }
+//         return low
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.findKRotation([4, 5, 6, 7, 0, 1, 2, 3]))
+
+
 class Solution {
-    findKRotation(nums) {
-        let low = 0
-        let high = nums.length - 1
+    singleNonDuplicate(nums) {
+        let low = 0;
+        let high = nums.length - 1;
         while (low < high) {
-            let mid = Math.floor((low + high) / 2)
-            if (nums[mid] > nums[high]) {
-                low = mid + 1
+            let mid = Math.floor((low + high) / 2);
+            if (mid % 2 !== 0) {
+                mid--;
             }
-            else {
-                high = mid
+
+            if (nums[mid] === nums[mid + 1]) {
+                // Pair is intact, single is on the right
+                low = mid + 2;
+            } else {
+                // Pair is broken, single is here or on the left
+                high = mid;
             }
         }
-        return low
+        return nums[low]
     }
 }
 
 const sol = new Solution()
-console.log(sol.findKRotation([4, 5, 6, 7, 0, 1, 2, 3]))
+console.log(sol.singleNonDuplicate([1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6]))
