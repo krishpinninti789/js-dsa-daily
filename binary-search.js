@@ -376,23 +376,47 @@
 // console.log(sol.countOccurrences([0, 0, 1, 1, 1, 2, 3], 1))
 
 
-/**
- * @param {number} x
- * @return {number}
- */
-var mySqrt = function (x) {
-    let low = 1
-    let high = x
-    while (low <= high) {
-        let mid = Math.floor((low + high) / 2)
-        if (mid * mid <= x) {
-            low = mid + 1
-        }
-        else {
-            high = mid - 1
-        }
-    }
-    return low - 1
-};
+// /**
+//  * @param {number} x
+//  * @return {number}
+//  */
+// var mySqrt = function (x) {
+//     let low = 1
+//     let high = x
+//     while (low <= high) {
+//         let mid = Math.floor((low + high) / 2)
+//         if (mid * mid <= x) {
+//             low = mid + 1
+//         }
+//         else {
+//             high = mid - 1
+//         }
+//     }
+//     return low - 1
+// };
 
-console.log(mySqrt(36))
+// console.log(mySqrt(36))
+
+
+class Solution {
+    NthRoot(n, m) {
+        let low = 1
+        let high = m
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2)
+            if ((mid ** n) === m) {
+                return mid
+            }
+            else if ((mid ** n) > m) {
+                high = mid - 1
+            }
+            else {
+                low = mid + 1
+            }
+        }
+        return -1
+    }
+}
+
+const sol = new Solution()
+console.log(sol.NthRoot(4, 69))
