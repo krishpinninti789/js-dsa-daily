@@ -398,25 +398,46 @@
 // console.log(mySqrt(36))
 
 
+// class Solution {
+//     NthRoot(n, m) {
+//         let low = 1
+//         let high = m
+//         while (low <= high) {
+//             let mid = Math.floor((low + high) / 2)
+//             if ((mid ** n) === m) {
+//                 return mid
+//             }
+//             else if ((mid ** n) > m) {
+//                 high = mid - 1
+//             }
+//             else {
+//                 low = mid + 1
+//             }
+//         }
+//         return -1
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.NthRoot(4, 69))
+
+
 class Solution {
-    NthRoot(n, m) {
-        let low = 1
-        let high = m
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2)
-            if ((mid ** n) === m) {
-                return mid
+    smallestDivisor(nums, limit) {
+        let ans = 0
+        for (let i = 1; i <= Math.max(...nums); i++) {
+            let sum = 0
+            for (let j = 0; j < nums.length; j++) {
+                sum += Math.ceil(nums[j] / i)
             }
-            else if ((mid ** n) > m) {
-                high = mid - 1
-            }
-            else {
-                low = mid + 1
+            if (sum <= limit) {
+                ans = i;
+                break;
             }
         }
-        return -1
+        return ans
     }
 }
 
 const sol = new Solution()
-console.log(sol.NthRoot(4, 69))
+console.log(sol.smallestDivisor([1, 2, 3, 4, 5], 8))
