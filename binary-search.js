@@ -468,22 +468,43 @@
 // const sol = new Solution()
 // console.log(sol.smallestDivisor([1, 2, 3, 4, 5], 8))
 
+// class Solution {
+//     minimumRateToEatBananas(nums, h) {
+//         let k = 1
+//         let max = Math.max(...nums)
+//         while (k <= max) {
+//             let hrs = 0
+//             for (let i = 0; i < nums.length; i++) {
+//                 hrs += Math.ceil(nums[i] / k)
+//             }
+//             if (hrs <= h) {
+//                 return k
+//             }
+//             k++
+//         }
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.minimumRateToEatBananas([7, 15, 6, 3], 8))
+
 class Solution {
     minimumRateToEatBananas(nums, h) {
-        let k = 1
-        let max = Math.max(...nums)
-        while (k <= max) {
-            let hrs = 0
+        let low = 1
+        let high = Math.max(...nums)
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2)
+            let sum = 0;
             for (let i = 0; i < nums.length; i++) {
-                hrs += Math.ceil(nums[i] / k)
+                sum += Math.ceil(nums[i] / mid)
             }
-            if (hrs <= h) {
-                return k
+            if (sum <= h) {
+                high = mid - 1
             }
-            k++
+            else {
+                low = mid + 1
+            }
         }
+        return high + 1
     }
 }
-
-const sol = new Solution()
-console.log(sol.minimumRateToEatBananas([7, 15, 6, 3], 8))
