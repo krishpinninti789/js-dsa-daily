@@ -19,18 +19,46 @@
 // printPattern(5);
 
 
+// class Solution {
+//     pattern21(n) {
+//         for (let i = 0; i < n; i++) {
+//             let str = "";
+
+//             for (let j = 0; j < n; j++) {
+//                 if (i === 0 || i === n - 1 ||
+//                     j === 0 || j === n - 1) {
+//                     str += "*";
+//                 } else {
+//                     str += " ";
+//                 }
+//             }
+
+//             console.log(str);
+//         }
+//     }
+// }
+
+// const sol = new Solution();
+// sol.pattern21(5);
+
+
+
 class Solution {
-    pattern21(n) {
-        for (let i = 0; i < n; i++) {
+    pattern22(n) {
+        let size = 2 * n - 1;
+
+        for (let i = 0; i < size; i++) {
             let str = "";
 
-            for (let j = 0; j < n; j++) {
-                if (i === 0 || i === n - 1 ||
-                    j === 0 || j === n - 1) {
-                    str += "*";
-                } else {
-                    str += " ";
-                }
+            for (let j = 0; j < size; j++) {
+                let top = i;
+                let left = j;
+                let bottom = size - 1 - i;
+                let right = size - 1 - j;
+
+                let min = Math.min(top, left, bottom, right);
+
+                str += (n - min) + " ";
             }
 
             console.log(str);
@@ -39,4 +67,5 @@ class Solution {
 }
 
 const sol = new Solution();
-sol.pattern21(5);
+sol.pattern22(5);
+
