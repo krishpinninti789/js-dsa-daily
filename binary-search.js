@@ -510,46 +510,82 @@
 // }
 
 
+// class Solution {
+//     roseGarden(n, nums, k, m) {
+//         if (m * k > n) return -1;
+
+//         let low = Math.min(...nums);
+//         let high = Math.max(...nums);
+//         let ans = -1;
+
+//         while (low <= high) {
+//             let mid = Math.floor((low + high) / 2);
+
+//             if (this.checkBouquets(mid, nums, k, m)) {
+//                 ans = mid;
+//                 high = mid - 1;
+//             } else {
+//                 low = mid + 1;
+//             }
+//         }
+
+//         return ans;
+//     }
+
+//     checkBouquets(day, nums, k, m) {
+//         let cnt = 0;
+//         let nb = 0;
+
+//         for (let i = 0; i < nums.length; i++) {
+//             if (nums[i] <= day) {
+//                 cnt++;
+//             } else {
+//                 nb += Math.floor(cnt / k);
+//                 cnt = 0;
+//             }
+//         }
+
+//         nb += Math.floor(cnt / k);
+
+//         return nb >= m;
+//     }
+// }
+
+// const sol = new Solution()
+// console.log(sol.roseGarden(8, [7, 7, 7, 7, 13, 11, 12, 7], 2, 3))
+
+
 class Solution {
-    roseGarden(n, nums, k, m) {
-        if (m * k > n) return -1;
-
-        let low = Math.min(...nums);
-        let high = Math.max(...nums);
-        let ans = -1;
-
+    shipWithinDays(weights, days) {
+        // Your code goes here
+        let low = Math.max(...weights)
+        let high = weights.reduce((acc, inti) => acc + inti, 0)
         while (low <= high) {
-            let mid = Math.floor((low + high) / 2);
-
-            if (this.checkBouquets(mid, nums, k, m)) {
-                ans = mid;
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+            let mid = Math.floor((low + high) / 2)
+            if (this.daysReq(mid, weights) <= days) {
+                high = mid - 1
+            }
+            else {
+                low = mid + 1
             }
         }
-
-        return ans;
+        return low
     }
-
-    checkBouquets(day, nums, k, m) {
-        let cnt = 0;
-        let nb = 0;
-
+    daysReq(cap, nums) {
+        let dr = 1
+        let load = 0
         for (let i = 0; i < nums.length; i++) {
-            if (nums[i] <= day) {
-                cnt++;
-            } else {
-                nb += Math.floor(cnt / k);
-                cnt = 0;
+            if (nums[i] + load > cap) {
+                dr += 1
+                load = nums[i]
+            }
+            else {
+                load += nums[i]
             }
         }
-
-        nb += Math.floor(cnt / k);
-
-        return nb >= m;
+        return dr
     }
 }
 
 const sol = new Solution()
-console.log(sol.roseGarden(8, [7, 7, 7, 7, 13, 11, 12, 7], 2, 3))
+console.log(sol.shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5))
