@@ -591,16 +591,36 @@
 // console.log(sol.shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5))
 
 
+// function findKthPositive(arr, k) {
+//     // Your code goes here
+//     let missing = []
+//     let max = Math.max(...arr)
+//     for (let i = 1; i <= max + k; i++) {
+//         if (!arr.includes(i)) {
+//             missing.push(i)
+//         }
+//     }
+//     return missing[k - 1]
+// }
+
+
 function findKthPositive(arr, k) {
     // Your code goes here
-    let missing = []
     let max = Math.max(...arr)
-    for (let i = 1; i <= max + k; i++) {
-        if (!arr.includes(i)) {
-            missing.push(i)
+    let low = 0
+    let high = arr.length - 1
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2)
+        let missing = arr[mid] - (mid + 1)
+        if (missing < k) {
+            low = mid + 1
+        }
+        else {
+            high = mid - 1
         }
     }
-    return missing[k - 1]
+    return low + k
 }
+
 
 console.log(findKthPositive([2, 4, 5, 6, 12], k = 7))
