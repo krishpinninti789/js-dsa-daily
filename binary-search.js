@@ -604,23 +604,57 @@
 // }
 
 
-function findKthPositive(arr, k) {
-    // Your code goes here
-    let max = Math.max(...arr)
-    let low = 0
-    let high = arr.length - 1
-    while (low <= high) {
-        let mid = Math.floor((low + high) / 2)
-        let missing = arr[mid] - (mid + 1)
-        if (missing < k) {
-            low = mid + 1
+// function findKthPositive(arr, k) {
+//     // Your code goes here
+//     let max = Math.max(...arr)
+//     let low = 0
+//     let high = arr.length - 1
+//     while (low <= high) {
+//         let mid = Math.floor((low + high) / 2)
+//         let missing = arr[mid] - (mid + 1)
+//         if (missing < k) {
+//             low = mid + 1
+//         }
+//         else {
+//             high = mid - 1
+//         }
+//     }
+//     return low + k
+// }
+
+
+// console.log(findKthPositive([2, 4, 5, 6, 12], k = 7))
+
+
+class Solution {
+    aggressiveCows(nums, k) {
+        nums = nums.sort((a, b) => a - b)
+        console.log(nums)
+        let low = 1
+        let high = nums[nums.length - 1] - nums[0]
+        while (low <= high) {
+            let mid = Math.floor((low + high) / 2)
+            if (this.canPlace(nums, mid, k) === true) {
+                low = mid + 1
+            }
+            else {
+                high = mid - 1
+            }
         }
-        else {
-            high = mid - 1
-        }
+        return high
     }
-    return low + k
+    canPlace(nums, mid, k) {
+        let currCows = 1
+        let last = nums[0]
+        for (let i = 1; i < nums.length; i++) {
+            if (nums[i] - last >= mid) {
+                currCows++
+                last = nums[i]
+            }
+            if (currCows >= k) {
+                return true
+            }
+        }
+        return false
+    }
 }
-
-
-console.log(findKthPositive([2, 4, 5, 6, 12], k = 7))
