@@ -698,65 +698,112 @@
 // }
 
 
-/**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number}
- */
-var findMedianSortedArrays = function (nums1, nums2) {
-    if (nums1.length > nums2.length) {
-        return findMedianSortedArrays(nums2, nums1);
-    }
+// /**
+//  * @param {number[]} nums1
+//  * @param {number[]} nums2
+//  * @return {number}
+//  */
+// var findMedianSortedArrays = function (nums1, nums2) {
+//     if (nums1.length > nums2.length) {
+//         return findMedianSortedArrays(nums2, nums1);
+//     }
 
-    let n = nums1.length;
-    let m = nums2.length;
+//     let n = nums1.length;
+//     let m = nums2.length;
 
-    let low = 0;
-    let high = n;
+//     let low = 0;
+//     let high = n;
 
-    let leftSize = Math.floor((n + m + 1) / 2);
+//     let leftSize = Math.floor((n + m + 1) / 2);
 
-    while (low <= high) {
+//     while (low <= high) {
 
-        let i = Math.floor((low + high) / 2);
-        let j = leftSize - i;
+//         let i = Math.floor((low + high) / 2);
+//         let j = leftSize - i;
 
-        // Four partition boundaries
-        let Aleft = i === 0 ? -Infinity : nums1[i - 1];
-        let Aright = i === n ? Infinity : nums1[i];
+//         // Four partition boundaries
+//         let Aleft = i === 0 ? -Infinity : nums1[i - 1];
+//         let Aright = i === n ? Infinity : nums1[i];
 
-        let Bleft = j === 0 ? -Infinity : nums2[j - 1];
-        let Bright = j === m ? Infinity : nums2[j];
+//         let Bleft = j === 0 ? -Infinity : nums2[j - 1];
+//         let Bright = j === m ? Infinity : nums2[j];
 
-        // Correct partition
-        if (Aleft <= Bright && Bleft <= Aright) {
+//         // Correct partition
+//         if (Aleft <= Bright && Bleft <= Aright) {
 
-            // Odd total elements
-            if ((n + m) % 2 === 1) {
+//             // Odd total elements
+//             if ((n + m) % 2 === 1) {
+//                 return Math.max(Aleft, Bleft);
+//             }
+
+//             // Even total elements
+//             let leftMax = Math.max(Aleft, Bleft);
+//             let rightMin = Math.min(Aright, Bright);
+
+//             return (leftMax + rightMin) / 2;
+//         }
+
+//         // Too many elements taken from nums1
+//         else if (Aleft > Bright) {
+//             high = i - 1;
+//         }
+
+//         // Too few elements taken from nums1
+//         else {
+//             low = i + 1;
+//         }
+//     }
+
+//     return 0;
+// };
+
+// console.log(findMedianSortedArrays([2, 4, 6], [1, 3, 5]))
+
+
+class Solution {
+    kthElement(a, b, k) {
+        // Always binary search on the smaller array
+        if (a.length > b.length) {
+            return this.kthElement(b, a, k);
+        }
+
+        let n = a.length;
+        let m = b.length;
+
+        let low = Math.max(0, k - m);
+        let high = Math.min(k, n);
+
+        while (low <= high) {
+            let i = Math.floor((low + high) / 2);
+            let j = k - i;
+
+            let Aleft = i === 0 ? -Infinity : a[i - 1];
+            let Aright = i === n ? Infinity : a[i];
+
+            let Bleft = j === 0 ? -Infinity : b[j - 1];
+            let Bright = j === m ? Infinity : b[j];
+
+            // Valid partition
+            if (Aleft <= Bright && Bleft <= Aright) {
                 return Math.max(Aleft, Bleft);
             }
 
-            // Even total elements
-            let leftMax = Math.max(Aleft, Bleft);
-            let rightMin = Math.min(Aright, Bright);
+            // Took too many elements from A
+            else if (Aleft > Bright) {
+                high = i - 1;
+            }
 
-            return (leftMax + rightMin) / 2;
+            // Took too few elements from A
+            else {
+                low = i + 1;
+            }
         }
 
-        // Too many elements taken from nums1
-        else if (Aleft > Bright) {
-            high = i - 1;
-        }
-
-        // Too few elements taken from nums1
-        else {
-            low = i + 1;
-        }
+        return -1;
     }
+}
 
-    return 0;
-};
-
-console.log(findMedianSortedArrays([2, 4, 6], [1, 3, 5]))
+const sol = new Solution()
+console.log(sol.kthElement([2, 3, 6, 7, 9], [1, 4, 8, 10], 5))
 
 
