@@ -659,42 +659,104 @@
 //     }
 // }
 
-class Solution {
-    findPages(nums, m) {
-        if (m > nums.length) return -1
-        let low = Math.min(...nums)
-        let high = nums.reduce((acc, init) => acc + init, 0)
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2)
-            if (this.allocateBooks(nums, mid, m) === true) {
-                high = mid - 1
-            }
-            else {
-                low = mid + 1
-            }
-        }
-        return low
+// class Solution {
+//     findPages(nums, m) {
+//         if (m > nums.length) return -1
+//         let low = Math.min(...nums)
+//         let high = nums.reduce((acc, init) => acc + init, 0)
+//         while (low <= high) {
+//             let mid = Math.floor((low + high) / 2)
+//             if (this.allocateBooks(nums, mid, m) === true) {
+//                 high = mid - 1
+//             }
+//             else {
+//                 low = mid + 1
+//             }
+//         }
+//         return low
+//     }
+//     allocateBooks(nums, pages, m) {
+//         let students = 1
+//         let pagesCount = 0
+//         for (let i = 0; i < nums.length; i++) {
+//             if (nums[i] > pages) return false
+//             if (nums[i] + pagesCount > pages) {
+//                 students++
+//                 pagesCount = nums[i]
+//             }
+//             else {
+//                 pagesCount += nums[i]
+//             }
+//         }
+//         if (students <= m) {
+//             return true
+//         }
+//         else {
+//             return false
+//         }
+//     }
+// }
+
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function (nums1, nums2) {
+    if (nums1.length > nums2.length) {
+        return findMedianSortedArrays(nums2, nums1);
     }
-    allocateBooks(nums, pages, m) {
-        let students = 1
-        let pagesCount = 0
-        for (let i = 0; i < nums.length; i++) {
-            if (nums[i] > pages) return false
-            if (nums[i] + pagesCount > pages) {
-                students++
-                pagesCount = nums[i]
+
+    let n = nums1.length;
+    let m = nums2.length;
+
+    let low = 0;
+    let high = n;
+
+    let leftSize = Math.floor((n + m + 1) / 2);
+
+    while (low <= high) {
+
+        let i = Math.floor((low + high) / 2);
+        let j = leftSize - i;
+
+        // Four partition boundaries
+        let Aleft = i === 0 ? -Infinity : nums1[i - 1];
+        let Aright = i === n ? Infinity : nums1[i];
+
+        let Bleft = j === 0 ? -Infinity : nums2[j - 1];
+        let Bright = j === m ? Infinity : nums2[j];
+
+        // Correct partition
+        if (Aleft <= Bright && Bleft <= Aright) {
+
+            // Odd total elements
+            if ((n + m) % 2 === 1) {
+                return Math.max(Aleft, Bleft);
             }
-            else {
-                pagesCount += nums[i]
-            }
+
+            // Even total elements
+            let leftMax = Math.max(Aleft, Bleft);
+            let rightMin = Math.min(Aright, Bright);
+
+            return (leftMax + rightMin) / 2;
         }
-        if (students <= m) {
-            return true
+
+        // Too many elements taken from nums1
+        else if (Aleft > Bright) {
+            high = i - 1;
         }
+
+        // Too few elements taken from nums1
         else {
-            return false
+            low = i + 1;
         }
     }
-}
+
+    return 0;
+};
+
+console.log(findMedianSortedArrays([2, 4, 6], [1, 3, 5]))
 
 
